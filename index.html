@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Deep Dive — Immersive Data Story</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+  <body>
+    <header class="main-header">
+      <div class="header-title-group">
+        <h1><b>Deep Dive</b></h1>
+        <div class="header-subtitle">Immersive Data Stories from Ocean to Sky</div>
+      </div>
+      <nav>
+        <a href="#" class="nav-link">Home</a>
+        <a href="#about" class="nav-link" id="aboutLink">About</a>
+  <a href="#contact" class="nav-link" id="contactLink">Contact</a>
+    <!-- Contact Modal -->
+    <div id="contactModal" class="about-modal">
+      <div class="about-modal-content">
+        <button class="about-modal-close" id="closeContact">&times;</button>
+        <h2>Contact Us</h2>
+        <p><strong>Email:</strong> <a href="mailto:info@deepdive.com" style="color:var(--accent);text-decoration:underline;">info@deepdive.com</a></p>
+  <p><strong>Phone:</strong> <a href="tel:7440758956" style="color:var(--accent);text-decoration:underline;">7440758956</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/company/deepdive" target="_blank" style="color:var(--accent);text-decoration:underline;">linkedin.com/company/deepdive</a></p>
+  <p><strong>Address:</strong> patel nagar bhopal (M.P.) 462022</p>
+        <p class="about-modal-highlight">We'd love to hear from you! Reach out for collaborations, questions, or feedback.</p>
+      </div>
+    </div>
+      </nav>
+      <img src="https://media.istockphoto.com/vectors/diver-deep-under-water-diving-training-course-open-sea-vector-id586374838?k=20&m=586374838&s=612x612&w=0&h=NfFohrJHdmuIar3y4xtsPy2Nl9x3Ed7ibmYa3fscMrQ=" alt="Diver Logo" class="header-logo" />
+    </header>
+
+    <!-- About Modal (moved outside header for proper stacking) -->
+    <div id="aboutModal" class="about-modal">
+      <div class="about-modal-content">
+        <button class="about-modal-close" id="closeAbout">&times;</button>
+        <h2>About Us</h2>
+        <p><strong>Deep Dive</strong> is a premier online platform dedicated to exploring ideas, knowledge, and insights beyond the surface. In today’s fast-paced digital world, information is abundant but often fragmented. Deep Dive was created with the mission to provide thoughtful, comprehensive, and reliable content that empowers curious minds to truly understand the subjects that shape our world.</p>
+        <p>Our platform is designed for learners, thinkers, professionals, and enthusiasts who are passionate about exploring topics in depth. We cover a wide array of subjects, including technology, science, history, culture, data analysis, and current trends, ensuring that every visitor can find valuable insights to expand their understanding. Each article, tutorial, and interactive resource on Deep Dive is meticulously researched, carefully curated, and presented in a clear and engaging manner.</p>
+        <p>At Deep Dive, we believe that learning should be immersive and interactive. Our platform integrates engaging visuals, interactive tools, and detailed explanations to help users visualize concepts, connect ideas, and gain a holistic understanding. We go beyond surface-level content, aiming to foster critical thinking, innovation, and curiosity in every visitor.</p>
+        <p>We are committed to quality and credibility. Every piece of content is crafted by experts and continuously updated to reflect the latest research, trends, and developments. Whether you are seeking to explore a new field, enhance your professional skills, or satisfy personal curiosity, Deep Dive provides a reliable and enriching experience for every journey of discovery.</p>
+        <p>Our vision is to build a community of knowledge seekers who value depth over simplicity, insight over information, and understanding over memorization. By joining Deep Dive, you are entering a space where exploration is encouraged, questions are welcomed, and learning never stops.</p>
+        <p class="about-modal-highlight">Discover more. Understand better. Think deeper.<br>With Deep Dive, curiosity becomes your greatest tool, and knowledge knows no bounds.</p>
+      </div>
+    </div>
+    <div id="starfield"></div>
+    <div class="app">
+    <aside class="story">
+      <h1>Deep Dive — Oceans to Sky</h1>
+      <div class="byline">Scrollytelling demo using NASA tiles — click chapters to explore layers.</div>
+      <div class="chapters" id="chapters">
+        <div class="chapter active" data-chapter="intro">
+          <h3>Intro</h3>
+          <p>Welcome! Explore ocean heat, coral bleaching, and clouds using real NASA data overlays. Use the chapters, layer toggles, and time slider below.</p>
+        </div>
+        <div class="chapter" data-chapter="heat">
+          <h3>1. Ocean Heat</h3>
+          <p>Sea-surface temperature anomalies show where oceans store and release heat.</p>
+        </div>
+        <div class="chapter" data-chapter="coral">
+          <h3>2. Coral Bleaching</h3>
+          <p>Marine heat waves stress coral reefs — warning signals for ecosystems.</p>
+        </div>
+        <div class="chapter" data-chapter="clouds">
+          <h3>3. Clouds & Aerosols</h3>
+          <p>Cloud cover and aerosols affect sunlight and weather patterns.</p>
+        </div>
+      </div>
+    </aside>
+    <section class="map-wrap">
+  <div id="map"></div>
+  <div id="popup" style="display:none;"></div>
+      <div class="controls" id="layerButtons">
+        <button data-layer="heat" class="active">Ocean Heat</button>
+        <button data-layer="coral">Coral</button>
+        <button data-layer="clouds">Clouds</button>
+      </div>
+      <div class="time-slider">
+        <label for="timeRange" style="font-weight:bold; margin-right:10px;">Month:</label>
+        <input type="range" id="timeRange" min="0" max="10" value="5" />
+        <div class="time-display" id="timeLabel" style="font-size:1.2em; font-weight:bold; margin-left:10px;">2019-07-01</div>
+      </div>
+    </section>
+  </div>
+
+  <section class="considerations">
+    <h2>Welcome to Deep Dive – Explore Knowledge Beyond the Surface</h2>
+    <p>
+      Deep Dive is your ultimate destination for exploring ideas, insights, and discoveries at a deeper level. In a world overflowing with information, we believe that true understanding comes from looking beyond headlines, quick summaries, and surface-level content. Our mission is to empower curious minds by providing comprehensive, well-researched, and thoughtfully curated content that encourages critical thinking, exploration, and discovery.
+    </p>
+    <p>
+      Whether you are a student, professional, or lifelong learner, Deep Dive is designed to satisfy your intellectual curiosity. From in-depth articles and detailed tutorials to interactive visuals and insightful analyses, every piece of content on our platform is crafted to take you further into the subject matter. Our website covers a wide range of topics including technology, science, history, culture, data analytics, and much more – all presented in an engaging and accessible manner.
+    </p>
+    <p>
+      At Deep Dive, we go beyond merely presenting facts. We connect ideas, provide context, and encourage exploration so that you can gain a holistic understanding of complex topics. Our interactive features allow users to engage directly with content, visualize concepts, and participate in discussions, making learning an active and immersive experience rather than a passive one.
+    </p>
+    <p>
+      We also believe in staying current. Our team constantly updates the platform with fresh insights, trending developments, and emerging research, ensuring that you always have access to the most relevant and reliable information. Whether you are looking to deepen your knowledge, explore a new field, or simply satisfy your curiosity, Deep Dive offers a rich and dynamic space to do just that.
+    </p>
+    <p>
+      Join our growing community of explorers, thinkers, and innovators. Dive deeper, question more, and discover the hidden layers of knowledge that shape our world. With Deep Dive, understanding is only the beginning – curiosity leads the way.
+    </p>
+  </section>
+
+  <footer class="main-footer">
+    </section>
+  
+    <footer class="main-footer">
+      <div class="footer-content">
+        <img src="https://media.istockphoto.com/vectors/diver-deep-under-water-diving-training-course-open-sea-vector-id586374838?k=20&m=586374838&s=612x612&w=0&h=NfFohrJHdmuIar3y4xtsPy2Nl9x3Ed7ibmYa3fscMrQ=" alt="Diver Logo" class="footer-logo" />
+        <div class="footer-links">
+          <a href="#" class="footer-link">Home</a>
+          <a href="#contact" class="footer-link">Contact</a>
+          <a href="#" class="footer-link">Privacy</a>
+          <a href="#" class="footer-link">Terms</a>
+        </div>
+        <div class="footer-copy">&copy; 2025 Deep Dive. All rights reserved.</div>
+      </div>
+  </footer>
+
+  <section class="summary">
+    <h2>Project Summary</h2>
+    <p>
+      <strong>Deep Dive</strong> is an immersive, interactive web experience that visualizes real NASA Earth data. Users can explore ocean heat, coral bleaching, and atmospheric changes through a dynamic map, time slider, and narrative chapters. The project emphasizes accessibility, science communication, and engaging storytelling, making complex data approachable for all audiences. Potential extensions include real-time data, audio, and mixed-reality features for even greater impact.
+    </p>
+  </section>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // About & Contact modal logic
+    function showModal(modal) {
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('show'), 10);
+    }
+    function hideModal(modal) {
+      modal.classList.remove('show');
+      setTimeout(() => modal.style.display = 'none', 400);
+    }
+    const aboutLink = document.getElementById('aboutLink');
+    const aboutModal = document.getElementById('aboutModal');
+    const closeAbout = document.getElementById('closeAbout');
+    aboutLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      showModal(aboutModal);
+    });
+    closeAbout.addEventListener('click', function() {
+      hideModal(aboutModal);
+    });
+    aboutModal.addEventListener('click', function(e) {
+      if(e.target === aboutModal) hideModal(aboutModal);
+    });
+
+    const contactLink = document.getElementById('contactLink');
+    const contactModal = document.getElementById('contactModal');
+    const closeContact = document.getElementById('closeContact');
+    contactLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      showModal(contactModal);
+    });
+    closeContact.addEventListener('click', function() {
+      hideModal(contactModal);
+    });
+    contactModal.addEventListener('click', function(e) {
+      if(e.target === contactModal) hideModal(contactModal);
+    });
+  </script>
+  <script>
+    // Starfield background effect
+    const starfield = document.getElementById('starfield');
+    starfield.style.position = 'fixed';
+    starfield.style.top = '0';
+    starfield.style.left = '0';
+    starfield.style.width = '100vw';
+    starfield.style.height = '100vh';
+    starfield.style.zIndex = '0';
+    starfield.style.pointerEvents = 'none';
+    starfield.style.overflow = 'hidden';
+
+    function createStar() {
+      const star = document.createElement('div');
+      const size = Math.random() * 2 + 1;
+      star.style.position = 'absolute';
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.borderRadius = '50%';
+      star.style.background = 'white';
+      star.style.opacity = Math.random() * 0.7 + 0.3;
+      const startY = Math.random() * window.innerHeight;
+      star.style.top = startY + 'px';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      // Randomize animation duration and initial offset
+      const duration = 8 + Math.random() * 12;
+      star.style.animationDuration = duration + 's';
+      star.style.animationDelay = (-startY / window.innerHeight * duration) + 's';
+      starfield.appendChild(star);
+    }
+    for(let i=0;i<180;i++) createStar();
+  </script>
+</body>
+</html>
